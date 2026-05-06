@@ -121,13 +121,13 @@
             dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
             dgvEstoque.DefaultCellStyle = dataGridViewCellStyle6;
             dgvEstoque.EnableHeadersVisualStyles = false;
-            dgvEstoque.Location = new Point(381, 367);
+            dgvEstoque.Location = new Point(381, 405);
             dgvEstoque.Name = "dgvEstoque";
             dgvEstoque.RowHeadersVisible = false;
             dgvEstoque.RowHeadersWidth = 51;
             dgvEstoque.RowTemplate.Height = 40;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEstoque.Size = new Size(1055, 548);
+            dgvEstoque.Size = new Size(1055, 390);
             dgvEstoque.TabIndex = 19;
             // 
             // panel2
@@ -330,7 +330,7 @@
             // panelCadastroE
             // 
             panelCadastroE.Controls.Add(groupBox1);
-            panelCadastroE.Location = new Point(342, 5);
+            panelCadastroE.Location = new Point(342, 0);
             panelCadastroE.Name = "panelCadastroE";
             panelCadastroE.Size = new Size(1136, 822);
             panelCadastroE.TabIndex = 33;
