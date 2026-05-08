@@ -11,7 +11,7 @@ namespace LogiN
         int idSelecionado = 0;
         bool modoEdicao = false;
 
-        string conexao = "server=localhost;database=Projeto;uid=root;pwd=;";
+        string conexao = "server=localhost;database=fiodeouro;uid=root;pwd=;";
 
         public TelaServicos()
         {
@@ -43,7 +43,7 @@ namespace LogiN
                 {
                     conn.Open();
 
-                    string sql = "SELECT * FROM Servicos";
+                    string sql = "SELECT * FROM cadastro_servico";
                     MySqlDataAdapter da = new MySqlDataAdapter(sql, conn);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -81,9 +81,9 @@ namespace LogiN
             dgvServicos.ReadOnly = true;
             dgvServicos.AllowUserToAddRows = false;
 
-            dgvServicos.Columns["Id"].Visible = false;
+            dgvServicos.Columns["Id_cadastro_servico"].Visible = false;
 
-            dgvServicos.Columns["Tipo"].HeaderText = "Tipo de Serviço";
+            dgvServicos.Columns["nome_servico"].HeaderText = "Tipo de Serviço";
             dgvServicos.Columns["Valor"].HeaderText = "Preço";
 
             dgvServicos.Columns["Valor"].DefaultCellStyle.Format = "C2";
@@ -133,9 +133,9 @@ namespace LogiN
             {
                 modoEdicao = true;
 
-                idSelecionado = Convert.ToInt32(dgvServicos.CurrentRow.Cells["Id"].Value);
+                idSelecionado = Convert.ToInt32(dgvServicos.CurrentRow.Cells["id_cadastro_servico"].Value);
 
-                cmbTipodeServicoS.Text = dgvServicos.CurrentRow.Cells["Tipo"].Value.ToString();
+                cmbTipodeServicoS.Text = dgvServicos.CurrentRow.Cells["nome_servico"].Value.ToString();
                 txtValorS.Text = dgvServicos.CurrentRow.Cells["Valor"].Value.ToString();
 
                 panelCadastroS.Visible = true;
@@ -176,7 +176,7 @@ namespace LogiN
 
                     if (!modoEdicao)
                     {
-                        string sql = "INSERT INTO Servicos (Tipo, Valor) VALUES (@t,@v)";
+                        string sql = "INSERT INTO cadastro_servico (nome_servico, Valor) VALUES (@t,@v)";
                         MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                         cmd.Parameters.AddWithValue("@t", tipo);
@@ -186,7 +186,7 @@ namespace LogiN
                     }
                     else
                     {
-                        string sql = "UPDATE Servicos SET Tipo=@t, Valor=@v WHERE Id=@id";
+                        string sql = "UPDATE cadastro_servicos SET nome_servico=@t, Valor=@v WHERE Id_cadastro_servico=@id";
                         MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                         cmd.Parameters.AddWithValue("@t", tipo);
@@ -215,13 +215,13 @@ namespace LogiN
             {
                 try
                 {
-                    int id = Convert.ToInt32(dgvServicos.CurrentRow.Cells["Id"].Value);
+                    int id = Convert.ToInt32(dgvServicos.CurrentRow.Cells["Id_cadastro_servico"].Value);
 
                     using (MySqlConnection conn = new MySqlConnection(conexao))
                     {
                         conn.Open();
 
-                        string sql = "DELETE FROM Servicos WHERE Id=@id";
+                        string sql = "DELETE FROM cadastro_servico WHERE Id_cadastro_servico=@id";
                         MySqlCommand cmd = new MySqlCommand(sql, conn);
                         cmd.Parameters.AddWithValue("@id", id);
 
@@ -254,7 +254,7 @@ namespace LogiN
             if (dgvServicos.DataSource is DataTable dt)
             {
                 dt.DefaultView.RowFilter =
-                    $"Tipo LIKE '%{txtBuscaS.Text}%'";
+                    $"nome_servico LIKE '%{txtBuscaS.Text}%'";
             }
         }
 

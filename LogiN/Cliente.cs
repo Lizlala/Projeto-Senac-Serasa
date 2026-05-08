@@ -11,7 +11,7 @@ namespace LogiN
         int idSelecionado = 0;
         bool modoEdicao = false;
 
-        string conexaoString = "server=localhost;database=Projeto;uid=root;pwd=;";
+        string conexaoString = "server=localhost;database=fiodeouro;uid=root;pwd=;";
 
         public TelaClientes()
         {
@@ -37,7 +37,7 @@ namespace LogiN
                 {
                     conn.Open();
 
-                    string sql = "SELECT Id, Nome, CPF, Telefone FROM Clientes";
+                    string sql = "SELECT Id_cliente, Nome, CPF, Telefone FROM Clientes";
                     MySqlDataAdapter da = new MySqlDataAdapter(sql, conn);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -76,8 +76,8 @@ namespace LogiN
             dgvClientes.AllowUserToAddRows = false;
             dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            if (dgvClientes.Columns["Id"] != null)
-                dgvClientes.Columns["Id"].Visible = false;
+            if (dgvClientes.Columns["Id_cliente"] != null)
+                dgvClientes.Columns["Id_cliente"].Visible = false;
         }
 
         // ================= NOVO =================
@@ -101,7 +101,7 @@ namespace LogiN
             {
                 modoEdicao = true;
 
-                idSelecionado = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id"].Value);
+                idSelecionado = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id_cliente"].Value);
 
                 txtNomeC.Text = dgvClientes.CurrentRow.Cells["Nome"].Value.ToString();
                 txtCPF.Text = dgvClientes.CurrentRow.Cells["CPF"].Value.ToString();
@@ -147,7 +147,7 @@ namespace LogiN
                         }
                         else
                         {
-                            string sql = "UPDATE Clientes SET Nome=@nome, CPF=@cpf, Telefone=@tel WHERE Id=@id";
+                            string sql = "UPDATE Clientes SET Nome=@nome, CPF=@cpf, Telefone=@tel WHERE Id_cliente=@id";
                             MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                             cmd.Parameters.AddWithValue("@nome", nome);
@@ -180,7 +180,7 @@ namespace LogiN
         {
             if (dgvClientes.CurrentRow != null)
             {
-                int id = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id"].Value);
+                int id = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id_cliente"].Value);
 
                 using (MySqlConnection conn = new MySqlConnection(conexaoString))
                 {
@@ -188,7 +188,7 @@ namespace LogiN
                     {
                         conn.Open();
 
-                        string sql = "DELETE FROM Clientes WHERE Id=@id";
+                        string sql = "DELETE FROM Clientes WHERE Id_cliente=@id";
                         MySqlCommand cmd = new MySqlCommand(sql, conn);
                         cmd.Parameters.AddWithValue("@id", id);
 

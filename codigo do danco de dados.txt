@@ -1,74 +1,46 @@
-DROP DATABASE IF EXISTS Projeto;
-CREATE DATABASE Projeto;
+USE FioDeOuro;
 
-USE Projeto;
-
-CREATE TABLE Clientes (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(100),
-    CPF VARCHAR(20),
-    Telefone VARCHAR(20)
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(11),
+    cpf VARCHAR(11) UNIQUE
 );
 
-INSERT INTO Clientes (Nome, CPF, Telefone) VALUES
-('Ana Silva', '12345678900', '11999999999'),
-('Maria Oliveira', '98765432100', '11988888888'),
-('João Souza', '45612378900', '11977777777'),
-('Carlos Lima', '78945612300', '11966666666'),
-('Fernanda Costa', '32165498700', '11955555555'),
-('Bruno Alves', '65498732100', '11944444444'),
-('Juliana Rocha', '15975348600', '11933333333');
-
-CREATE TABLE Estoque (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(100),
-    Quantidade INT,
-    Categoria VARCHAR(50)
+CREATE TABLE login_usuario (
+    id_login_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) UNIQUE NOT NULL,
+    cpf VARCHAR(11) NOT NULL,
+    senha VARCHAR(6) UNIQUE NOT NULL
 );
 
-INSERT INTO Estoque (Nome, Quantidade, Categoria) VALUES
-('Tecido Jeans', 50, 'Tecido'),
-('Linha Branca', 100, 'Linha'),
-('Zíper Preto', 30, 'Aviamento'),
-('Botão Metal', 200, 'Aviamento'),
-('Tecido Algodão', 40, 'Tecido'),
-('Linha Preta', 80, 'Linha'),
-('Elástico', 60, 'Aviamento');
-
-CREATE TABLE Servicos (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Tipo VARCHAR(100),
-    Valor DECIMAL(10,2)
+CREATE TABLE cadastro_servico (
+    id_cadastro_servico INT AUTO_INCREMENT PRIMARY KEY,
+    nome_servico VARCHAR(50) NOT NULL,
+    valor DECIMAL(10,2)
 );
 
-INSERT INTO Servicos (Tipo, Valor) VALUES
-('Barra de calça', 15.00),
-('Ajuste de roupa', 25.00),
-('Troca de zíper', 30.00),
-('Customização', 50.00),
-('Reforma simples', 20.00),
-('Ajuste de vestido', 40.00),
-('Conserto geral', 35.00);
+CREATE TABLE pedidos_servicos (
+    id_pedido_servico INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    id_servico INT NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    status_pedido VARCHAR(50),
 
-CREATE TABLE Pedidos (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    ClienteId INT,
-    ServicoId INT,
-    Valor DECIMAL(10,2),
-    Status VARCHAR(50),
+    CONSTRAINT fk_pedido_cliente
+        FOREIGN KEY (id_cliente)
+        REFERENCES clientes(id_cliente),
 
-    FOREIGN KEY (ClienteId) REFERENCES Clientes(Id),
-    FOREIGN KEY (ServicoId) REFERENCES Servicos(Id)
+    CONSTRAINT fk_pedido_servico
+        FOREIGN KEY (id_servico)
+        REFERENCES cadastro_servico(id_cadastro_servico)
 );
 
-
-INSERT INTO Pedidos (ClienteId, ServicoId, Valor, Status) VALUES
-(1, 1, 15.00, 'Pendente'),
-(2, 2, 25.00, 'Em andamento'),
-(3, 3, 30.00, 'Finalizado'),
-(4, 4, 50.00, 'Pendente'),
-(5, 5, 10.00, 'Finalizado'),
-(6, 6, 40.00, 'Em andamento'),
-(7, 7, 20.00, 'Pendente');
+CREATE TABLE estoque (
+    id_estoque INT AUTO_INCREMENT PRIMARY KEY,
+    nome_item VARCHAR(50) NOT NULL,
+    quantidade INT NOT NULL,
+    categoria VARCHAR(50) NOT NULL
+);
 
 

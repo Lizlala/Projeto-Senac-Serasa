@@ -11,7 +11,7 @@ namespace LogiN
         int idSelecionado = 0;
         bool modoEdicao = false;
 
-        string conexao = "server=localhost;database=Projeto;uid=root;pwd=;";
+        string conexao = "server=localhost;database=fiodeouro;uid=root;pwd=;";
 
         public TelaEstoque()
         {
@@ -75,9 +75,9 @@ namespace LogiN
             dgvEstoque.ReadOnly = true;
             dgvEstoque.AllowUserToAddRows = false;
 
-            dgvEstoque.Columns["Id"].Visible = false;
+            dgvEstoque.Columns["Id_estoque"].Visible = false;
 
-            dgvEstoque.Columns["Nome"].HeaderText = "Nome";
+            dgvEstoque.Columns["Nome_item"].HeaderText = "Nome";
             dgvEstoque.Columns["Quantidade"].HeaderText = "Quantidade";
             dgvEstoque.Columns["Categoria"].HeaderText = "Categoria";
 
@@ -104,9 +104,9 @@ namespace LogiN
             {
                 modoEdicao = true;
 
-                idSelecionado = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["Id"].Value);
+                idSelecionado = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["Id_estoque"].Value);
 
-                txtNomeItemE.Text = dgvEstoque.CurrentRow.Cells["Nome"].Value.ToString();
+                txtNomeItemE.Text = dgvEstoque.CurrentRow.Cells["Nome_item"].Value.ToString();
                 QuantidadeE.Value = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["Quantidade"].Value);
                 cmbCategoriaE.Text = dgvEstoque.CurrentRow.Cells["Categoria"].Value.ToString();
 
@@ -138,7 +138,7 @@ namespace LogiN
 
                 if (!modoEdicao)
                 {
-                    string sql = "INSERT INTO Estoque (Nome, Quantidade, Categoria) VALUES (@n,@q,@c)";
+                    string sql = "INSERT INTO Estoque (Nome_item, Quantidade, Categoria) VALUES (@n,@q,@c)";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                     cmd.Parameters.AddWithValue("@n", nome);
@@ -149,7 +149,7 @@ namespace LogiN
                 }
                 else
                 {
-                    string sql = "UPDATE Estoque SET Nome=@n, Quantidade=@q, Categoria=@c WHERE Id=@id";
+                    string sql = "UPDATE Estoque SET Nome_item=@n, Quantidade=@q, Categoria=@c WHERE Id_estoque=@id";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                     cmd.Parameters.AddWithValue("@n", nome);
@@ -170,13 +170,13 @@ namespace LogiN
         {
             if (dgvEstoque.CurrentRow != null)
             {
-                int id = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["Id"].Value);
+                int id = Convert.ToInt32(dgvEstoque.CurrentRow.Cells["Id_estoque"].Value);
 
                 using (MySqlConnection conn = new MySqlConnection(conexao))
                 {
                     conn.Open();
 
-                    string sql = "DELETE FROM Estoque WHERE Id=@id";
+                    string sql = "DELETE FROM Estoque WHERE Id_estoque=@id";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -201,7 +201,7 @@ namespace LogiN
         private void txtBuscaE_TextChanged(object sender, EventArgs e)
         {
             (dgvEstoque.DataSource as DataTable).DefaultView.RowFilter =
-                $"Nome LIKE '%{txtBuscaE.Text}%' OR Categoria LIKE '%{txtBuscaE.Text}%'";
+                $"Nome_item LIKE '%{txtBuscaE.Text}%' OR Categoria LIKE '%{txtBuscaE.Text}%'";
         }
 
         // ================= NAVEGAÇÃO =================
