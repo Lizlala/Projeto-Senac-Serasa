@@ -98,79 +98,98 @@ namespace LogiN
                 cmbTipodeServicoP.ValueMember = "Id_cadastro_servico";
             }
         }
-
         private void EstiloGrid()
         {
             dgvPedidos.EnableHeadersVisualStyles = false;
 
-            Color lilas = Color.FromArgb(210, 227, 252);
+            Font fontePadrao = new Font("Century Gothic", 10F, FontStyle.Regular);
+            Font fonteCabecalho = new Font("Century Gothic", 10F, FontStyle.Bold);
 
-            dgvPedidos.ColumnHeadersDefaultCellStyle.SelectionBackColor = lilas;
-            dgvPedidos.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.Black;
+            Color corSelecaoLinha = Color.FromArgb(191, 165, 187);
 
+            dgvPedidos.BackgroundColor = Color.White;
+            dgvPedidos.GridColor = Color.White;
+            dgvPedidos.BorderStyle = BorderStyle.None;
+            dgvPedidos.CellBorderStyle = DataGridViewCellBorderStyle.None;
+
+            // CABEÇALHO
             dgvPedidos.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvPedidos.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-
+            dgvPedidos.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.White;
+            dgvPedidos.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvPedidos.ColumnHeadersDefaultCellStyle.Font = fonteCabecalho;
             dgvPedidos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvPedidos.ColumnHeadersHeight = 35;
 
-            dgvPedidos.DefaultCellStyle.SelectionBackColor =
-                Color.FromArgb(250, 210, 207);
-
-            dgvPedidos.DefaultCellStyle.SelectionForeColor = Color.Black;
-
+            // LINHAS
             dgvPedidos.DefaultCellStyle.BackColor = Color.White;
             dgvPedidos.DefaultCellStyle.ForeColor = Color.Black;
+            dgvPedidos.DefaultCellStyle.SelectionBackColor = corSelecaoLinha;
+            dgvPedidos.DefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvPedidos.DefaultCellStyle.Font = fontePadrao;
+            dgvPedidos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-            dgvPedidos.DefaultCellStyle.Font =
-                new Font("Segoe UI", 10);
-
-            dgvPedidos.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 10, FontStyle.Bold);
+            // LINHAS ALTERNADAS
+            dgvPedidos.AlternatingRowsDefaultCellStyle.BackColor = Color.White;
+            dgvPedidos.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
+            dgvPedidos.AlternatingRowsDefaultCellStyle.SelectionBackColor = corSelecaoLinha;
+            dgvPedidos.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.Black;
+            dgvPedidos.AlternatingRowsDefaultCellStyle.Font = fontePadrao;
 
             dgvPedidos.RowHeadersVisible = false;
-
-            dgvPedidos.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            dgvPedidos.BorderStyle = BorderStyle.None;
-            dgvPedidos.GridColor = Color.White;
-
             dgvPedidos.ReadOnly = true;
-
-            // 🔥 remove linha branca vazia
             dgvPedidos.AllowUserToAddRows = false;
 
-            dgvPedidos.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
-
+            dgvPedidos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvPedidos.MultiSelect = false;
 
-            dgvPedidos.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvPedidos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 
-            // 🔥 CORREÇÃO DO TEXTO ESCONDIDO
-            dgvPedidos.AutoSizeRowsMode =
-                DataGridViewAutoSizeRowsMode.None;
-
-            dgvPedidos.RowTemplate.Height = 32;
-
-            dgvPedidos.DefaultCellStyle.Padding =
-                new Padding(4, 2, 4, 2);
-
-            // 🔥 scroll funcionando
+            dgvPedidos.RowTemplate.Height = 35;
             dgvPedidos.ScrollBars = ScrollBars.Vertical;
+
 
             dgvPedidos.Columns["id_pedido_servico"].Visible = false;
             dgvPedidos.Columns["id_cliente"].Visible = false;
             dgvPedidos.Columns["id_servico"].Visible = false;
 
-            dgvPedidos.Columns["Clientes"].HeaderText = "Cliente";
-            dgvPedidos.Columns["cadastro_servico"].HeaderText = "Serviço";
-            dgvPedidos.Columns["Valor"].HeaderText = "Valor";
-            dgvPedidos.Columns["Status_pedido"].HeaderText = "Status";
+            // ✅ 🔥 ESSA PARTE FAZ FICAR IGUAL AO ESTOQUE
+            foreach (DataGridViewRow row in dgvPedidos.Rows)
+            {
+                row.DefaultCellStyle.Font = fontePadrao;
+            }
 
-            dgvPedidos.Columns["Valor"].DefaultCellStyle.Format = "C2";
+            // ESCONDE IDS
+            if (dgvPedidos.Columns.Contains("id_pedido_servico"))
+                dgvPedidos.Columns["id_pedido_servico"].Visible = false;
+
+            if (dgvPedidos.Columns.Contains("id_cliente"))
+                dgvPedidos.Columns["id_cliente"].Visible = false;
+
+            if (dgvPedidos.Columns.Contains("id_servico"))
+                dgvPedidos.Columns["id_servico"].Visible = false;
+
+            // COLUNAS
+            if (dgvPedidos.Columns.Contains("Clientes"))
+                dgvPedidos.Columns["Clientes"].HeaderText = "Cliente";
+
+            if (dgvPedidos.Columns.Contains("cadastro_servico"))
+                dgvPedidos.Columns["cadastro_servico"].HeaderText = "Serviço";
+
+            if (dgvPedidos.Columns.Contains("Valor"))
+            {
+                dgvPedidos.Columns["Valor"].HeaderText = "Valor";
+                dgvPedidos.Columns["Valor"].DefaultCellStyle.Format = "C2";
+            }
+
+            if (dgvPedidos.Columns.Contains("Status_pedido"))
+                dgvPedidos.Columns["Status_pedido"].HeaderText = "Status";
 
             dgvPedidos.ClearSelection();
         }
+
+
 
         private void cmbTipodeServicoP_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -182,77 +201,123 @@ namespace LogiN
 
         private void btnSalvarP_Click(object sender, EventArgs e)
         {
-            int clienteId = Convert.ToInt32(cmbClienteP.SelectedValue);
-            int servicoId = Convert.ToInt32(cmbTipodeServicoP.SelectedValue);
-            string status = cmbStatusP.Text;
-
-            decimal valor;
-            if (!decimal.TryParse(txtValorP.Text.Replace(",", "."),
-                System.Globalization.NumberStyles.Any,
-                System.Globalization.CultureInfo.InvariantCulture,
-                out valor))
+            try
             {
-                MessageBox.Show("Valor inválido!");
-                return;
-            }
+                int clienteId = Convert.ToInt32(cmbClienteP.SelectedValue);
+                int servicoId = Convert.ToInt32(cmbTipodeServicoP.SelectedValue);
+                string status = cmbStatusP.Text;
 
-            using (MySqlConnection conn = new MySqlConnection(conexao))
+                decimal valor;
+
+                if (!decimal.TryParse(
+                    txtValorP.Text.Replace(",", "."),
+                    System.Globalization.NumberStyles.Any,
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    out valor))
+                {
+                    return;
+                }
+
+                using (MySqlConnection conn =
+                    new MySqlConnection(conexao))
+                {
+                    conn.Open();
+
+                    // INSERT
+                    if (!modoEdicao)
+                    {
+                        string sql =
+                            "INSERT INTO Pedidos_servicos " +
+                            "(id_cliente, id_servico, Valor, Status_pedido) " +
+                            "VALUES (@c,@s,@v,@st)";
+
+                        MySqlCommand cmd =
+                            new MySqlCommand(sql, conn);
+
+                        cmd.Parameters.AddWithValue("@c", clienteId);
+                        cmd.Parameters.AddWithValue("@s", servicoId);
+                        cmd.Parameters.AddWithValue("@v", valor);
+                        cmd.Parameters.AddWithValue("@st", status);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Pedido cadastrado!");
+                    }
+
+                    else
+                    {
+                        string sql =
+                            "UPDATE Pedidos_servicos " +
+                            "SET id_cliente=@c, " +
+                            "id_servico=@s, " +
+                            "Valor=@v, " +
+                            "Status_pedido=@st " +
+                            "WHERE Id_pedido_servico=@id";
+
+                        MySqlCommand cmd =
+                            new MySqlCommand(sql, conn);
+
+                        cmd.Parameters.AddWithValue("@c", clienteId);
+                        cmd.Parameters.AddWithValue("@s", servicoId);
+                        cmd.Parameters.AddWithValue("@v", valor);
+                        cmd.Parameters.AddWithValue("@st", status);
+                        cmd.Parameters.AddWithValue("@id", idSelecionado);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Pedido atualizado!");
+
+                        modoEdicao = false;
+                    }
+                }
+
+                CarregarPedidos();
+
+                dgvPedidos.ClearSelection();
+            }
+            catch (Exception ex)
             {
-                conn.Open();
 
-                if (!modoEdicao)
-                {
-                    string sql = "INSERT INTO Pedidos_servicos (id_cliente, id_servico, Valor, Status_pedido) VALUES (@c,@s,@v,@st)";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                    cmd.Parameters.AddWithValue("@c", clienteId);
-                    cmd.Parameters.AddWithValue("@s", servicoId);
-                    cmd.Parameters.AddWithValue("@v", valor);
-                    cmd.Parameters.AddWithValue("@st", status);
-
-                    cmd.ExecuteNonQuery();
-                }
-                else
-                {
-
-                    string sql = "UPDATE Pedidos_servicos SET id_cliente=@c, id_servico=@s, Valor=@v, Status_pedido=@st WHERE id_pedido_servico=@id";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                    cmd.Parameters.AddWithValue("@c", clienteId);
-                    cmd.Parameters.AddWithValue("@s", servicoId);
-                    cmd.Parameters.AddWithValue("@v", valor);
-                    cmd.Parameters.AddWithValue("@st", status);
-                    cmd.Parameters.AddWithValue("@id", idSelecionado);
-
-                    cmd.ExecuteNonQuery();
-                }
+                MessageBox.Show(
+                    "Erro ao salvar:\n\n" + ex.ToString());
             }
-
-            CarregarPedidos();
         }
 
         private void btnExcluirP_Click(object sender, EventArgs e)
         {
             if (dgvPedidos.CurrentRow != null)
             {
-                int id = Convert.ToInt32(dgvPedidos.CurrentRow.Cells["Id_pedido_servico"].Value);
+                DialogResult confirmacao = MessageBox.Show(
+                    "Tem certeza que deseja excluir este pedido?",
+                    "Confirmação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
 
-                using (MySqlConnection conn = new MySqlConnection(conexao))
+                if (confirmacao == DialogResult.Yes)
                 {
-                    conn.Open();
+                    int id = Convert.ToInt32(
+                        dgvPedidos.CurrentRow.Cells["Id_pedido_servico"].Value);
 
-                    string sql = "DELETE FROM Pedidos_servicos WHERE Id_pedido_servico=@id";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@id", id);
+                    using (MySqlConnection conn = new MySqlConnection(conexao))
+                    {
+                        conn.Open();
 
-                    cmd.ExecuteNonQuery();
+                        string sql = "DELETE FROM Pedidos_servicos WHERE Id_pedido_servico=@id";
+                        MySqlCommand cmd = new MySqlCommand(sql, conn);
+                        cmd.Parameters.AddWithValue("@id", id);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Pedido excluído com sucesso!");
+
+                    CarregarPedidos();
                 }
-
-                CarregarPedidos();
             }
             else
             {
-                MessageBox.Show("Selecione um pedido!");
+                MessageBox.Show("Selecione um pedido para excluir.");
             }
         }
 
@@ -283,7 +348,6 @@ namespace LogiN
             this.Hide();
         }
 
-        //====== Codigo para não permitir letras, apenas numeros =======
         private void txtValorP_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) &&
@@ -293,7 +357,6 @@ namespace LogiN
             }
         }
 
-        //====== Codigo para não permitir numeros, apenas letras =======
         private void cmbClienteP_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) &&
@@ -324,28 +387,63 @@ namespace LogiN
             }
         }
 
-        //======================== EDITAR ==========================
+
         private void btnEditarP_Click(object sender, EventArgs e)
         {
-
             if (dgvPedidos.CurrentRow != null)
             {
                 modoEdicao = true;
 
-                idSelecionado = Convert.ToInt32(dgvPedidos.CurrentRow.Cells["id_pedido_servico"].Value);
 
-                cmbClienteP.SelectedValue = dgvPedidos.CurrentRow.Cells["id_cliente"].Value;
+                idSelecionado = Convert.ToInt32(
+                    dgvPedidos.CurrentRow.Cells["Id_pedido_servico"].Value);
 
-                cmbTipodeServicoP.SelectedValue = dgvPedidos.CurrentRow.Cells["id_servico"].Value;
+                cmbClienteP.Text =
+                    dgvPedidos.CurrentRow.Cells["Clientes"].Value.ToString();
 
-                txtValorP.Text = dgvPedidos.CurrentRow.Cells["valor"].Value.ToString();
+                cmbTipodeServicoP.Text =
+                    dgvPedidos.CurrentRow.Cells["cadastro_servico"].Value.ToString();
 
-                cmbStatusP.Text = dgvPedidos.CurrentRow.Cells["status_pedido"].Value.ToString();
+                txtValorP.Text =
+                    dgvPedidos.CurrentRow.Cells["Valor"].Value.ToString();
+
+                cmbStatusP.Text =
+                    dgvPedidos.CurrentRow.Cells["Status_pedido"].Value.ToString();
+
+                panelCadastroPedidos.Visible = true;
+                panelCadastroPedidos.BringToFront();
+
+                dgvPedidos.Visible = false;
+
             }
             else
             {
                 MessageBox.Show("Selecione um pedido!");
             }
+        }
+
+        private void btnVoltarP_Click(object sender, EventArgs e)
+        {
+            panelCadastroPedidos.Visible = false;
+
+            dgvPedidos.Visible = true;
+
+            dgvPedidos.ClearSelection();
+        }
+
+        private void btnAbrirCadastroP_Click(object sender, EventArgs e)
+        {
+            modoEdicao = false;
+
+            cmbClienteP.SelectedIndex = -1;
+            cmbTipodeServicoP.SelectedIndex = -1;
+            txtValorP.Clear();
+            cmbStatusP.SelectedIndex = -1;
+
+            panelCadastroPedidos.Visible = true;
+            panelCadastroPedidos.BringToFront();
+
+            dgvPedidos.Visible = false;
         }
     }
 }

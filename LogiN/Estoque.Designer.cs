@@ -345,7 +345,7 @@
             // panelCadastroE
             // 
             panelCadastroE.Controls.Add(groupBox1);
-            panelCadastroE.Location = new Point(299, 0);
+            panelCadastroE.Location = new Point(300, 0);
             panelCadastroE.Margin = new Padding(3, 2, 3, 2);
             panelCadastroE.Name = "panelCadastroE";
             panelCadastroE.Size = new Size(994, 616);

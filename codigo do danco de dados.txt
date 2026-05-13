@@ -43,4 +43,18 @@ CREATE TABLE estoque (
     categoria VARCHAR(50) NOT NULL
 );
 
+SELECT p.id_cliente
+FROM pedidos_servicos p;
+
+SELECT p.id_pedido_servico,
+       p.id_cliente,
+       p.id_servico,
+       c.nome AS Clientes,
+       s.nome_servico AS cadastro_servico,
+       p.valor,
+       p.status_pedido
+FROM pedidos_servicos p
+JOIN clientes c ON p.id_cliente = c.id_cliente
+JOIN cadastro_servico s ON p.id_servico = s.id_cadastro_servico;
+
 

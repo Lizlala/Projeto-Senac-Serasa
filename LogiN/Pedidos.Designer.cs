@@ -61,8 +61,14 @@
             cmbClienteP = new ComboBox();
             txtValorP = new TextBox();
             CadastrarNovoCliente = new GroupBox();
+            btnVoltarP = new Button();
             btnExcluirP = new Button();
             btnEditarP = new Button();
+            panelCadastroPedidos = new Panel();
+            groupBox1 = new GroupBox();
+            label3 = new Label();
+            label9 = new Label();
+            btnAbrirCadastroP = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -70,6 +76,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvPedidos).BeginInit();
             CadastrarNovoCliente.SuspendLayout();
+            panelCadastroPedidos.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -286,7 +294,7 @@
             panel3.BackColor = Color.White;
             panel3.Controls.Add(pictureBox3);
             panel3.Controls.Add(txtBuscaP);
-            panel3.Location = new Point(344, 313);
+            panel3.Location = new Point(6, 115);
             panel3.Margin = new Padding(3, 2, 3, 2);
             panel3.Name = "panel3";
             panel3.Size = new Size(898, 47);
@@ -335,6 +343,7 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvPedidos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvPedidos.ColumnHeadersHeight = 29;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
             dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
@@ -345,15 +354,16 @@
             dgvPedidos.DefaultCellStyle = dataGridViewCellStyle3;
             dgvPedidos.EnableHeadersVisualStyles = false;
             dgvPedidos.GridColor = Color.White;
-            dgvPedidos.Location = new Point(352, 433);
+            dgvPedidos.Location = new Point(336, 306);
             dgvPedidos.Margin = new Padding(3, 2, 3, 2);
             dgvPedidos.MultiSelect = false;
             dgvPedidos.Name = "dgvPedidos";
             dgvPedidos.ReadOnly = true;
             dgvPedidos.RowHeadersVisible = false;
+            dgvPedidos.RowHeadersWidth = 51;
             dgvPedidos.RowTemplate.Height = 28;
             dgvPedidos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPedidos.Size = new Size(890, 197);
+            dgvPedidos.Size = new Size(923, 303);
             dgvPedidos.TabIndex = 35;
             // 
             // label8
@@ -410,7 +420,7 @@
             btnSalvarP.FlatAppearance.BorderSize = 0;
             btnSalvarP.FlatStyle = FlatStyle.Flat;
             btnSalvarP.Font = new Font("Century Gothic", 10F);
-            btnSalvarP.Location = new Point(776, 195);
+            btnSalvarP.Location = new Point(651, 195);
             btnSalvarP.Margin = new Padding(3, 2, 3, 2);
             btnSalvarP.Name = "btnSalvarP";
             btnSalvarP.Size = new Size(94, 26);
@@ -471,6 +481,7 @@
             // 
             // CadastrarNovoCliente
             // 
+            CadastrarNovoCliente.Controls.Add(btnVoltarP);
             CadastrarNovoCliente.Controls.Add(txtValorP);
             CadastrarNovoCliente.Controls.Add(cmbClienteP);
             CadastrarNovoCliente.Controls.Add(cmbTipodeServicoP);
@@ -482,11 +493,26 @@
             CadastrarNovoCliente.Controls.Add(label7);
             CadastrarNovoCliente.Controls.Add(label6);
             CadastrarNovoCliente.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CadastrarNovoCliente.Location = new Point(344, 24);
+            CadastrarNovoCliente.Location = new Point(36, 29);
             CadastrarNovoCliente.Name = "CadastrarNovoCliente";
             CadastrarNovoCliente.Size = new Size(898, 244);
             CadastrarNovoCliente.TabIndex = 27;
             CadastrarNovoCliente.TabStop = false;
+            // 
+            // btnVoltarP
+            // 
+            btnVoltarP.BackColor = Color.White;
+            btnVoltarP.FlatAppearance.BorderSize = 0;
+            btnVoltarP.FlatStyle = FlatStyle.Flat;
+            btnVoltarP.Font = new Font("Century Gothic", 10F);
+            btnVoltarP.Location = new Point(776, 195);
+            btnVoltarP.Margin = new Padding(3, 2, 3, 2);
+            btnVoltarP.Name = "btnVoltarP";
+            btnVoltarP.Size = new Size(94, 26);
+            btnVoltarP.TabIndex = 16;
+            btnVoltarP.Text = "Voltar";
+            btnVoltarP.UseVisualStyleBackColor = false;
+            btnVoltarP.Click += btnVoltarP_Click;
             // 
             // btnExcluirP
             // 
@@ -494,7 +520,7 @@
             btnExcluirP.FlatAppearance.BorderSize = 0;
             btnExcluirP.FlatStyle = FlatStyle.Flat;
             btnExcluirP.Font = new Font("Century Gothic", 10F);
-            btnExcluirP.Location = new Point(1120, 384);
+            btnExcluirP.Location = new Point(810, 181);
             btnExcluirP.Margin = new Padding(3, 2, 3, 2);
             btnExcluirP.Name = "btnExcluirP";
             btnExcluirP.Size = new Size(94, 26);
@@ -509,7 +535,7 @@
             btnEditarP.FlatAppearance.BorderSize = 0;
             btnEditarP.FlatStyle = FlatStyle.Flat;
             btnEditarP.Font = new Font("Century Gothic", 10F);
-            btnEditarP.Location = new Point(1000, 384);
+            btnEditarP.Location = new Point(684, 181);
             btnEditarP.Margin = new Padding(3, 2, 3, 2);
             btnEditarP.Name = "btnEditarP";
             btnEditarP.Size = new Size(94, 26);
@@ -517,6 +543,69 @@
             btnEditarP.Text = "Editar";
             btnEditarP.UseVisualStyleBackColor = false;
             btnEditarP.Click += btnEditarP_Click;
+
+            // 
+            // panelCadastroPedidos
+            // 
+            panelCadastroPedidos.Controls.Add(CadastrarNovoCliente);
+            panelCadastroPedidos.Location = new Point(300, 0);
+            panelCadastroPedidos.Name = "panelCadastroPedidos";
+            panelCadastroPedidos.Size = new Size(991, 620);
+            panelCadastroPedidos.TabIndex = 36;
+            panelCadastroPedidos.Visible = false;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(btnAbrirCadastroP);
+            groupBox1.Controls.Add(btnExcluirP);
+            groupBox1.Controls.Add(panel3);
+            groupBox1.Controls.Add(btnEditarP);
+            groupBox1.Location = new Point(336, 25);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(923, 227);
+            groupBox1.TabIndex = 37;
+            groupBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 10F);
+            label3.Location = new Point(6, 62);
+            label3.Name = "label3";
+            label3.Size = new Size(269, 19);
+            label3.TabIndex = 36;
+            label3.Text = "Gerencie seus materiais e aviamentos";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Century Gothic", 16F, FontStyle.Bold);
+            label9.Location = new Point(6, 32);
+            label9.Name = "label9";
+            label9.Size = new Size(228, 26);
+            label9.TabIndex = 35;
+            label9.Text = "Controle de Estoque";
+            // 
+            // btnAbrirCadastroP
+            // 
+            btnAbrirCadastroP.BackColor = Color.FromArgb(191, 165, 187);
+            btnAbrirCadastroP.FlatAppearance.BorderSize = 0;
+            btnAbrirCadastroP.FlatAppearance.MouseDownBackColor = Color.FromArgb(191, 165, 187);
+            btnAbrirCadastroP.FlatAppearance.MouseOverBackColor = Color.FromArgb(191, 165, 187);
+            btnAbrirCadastroP.FlatStyle = FlatStyle.Flat;
+            btnAbrirCadastroP.Font = new Font("Century Gothic", 12F);
+            btnAbrirCadastroP.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAbrirCadastroP.Location = new Point(716, 32);
+            btnAbrirCadastroP.Margin = new Padding(3, 2, 3, 2);
+            btnAbrirCadastroP.Name = "btnAbrirCadastroP";
+            btnAbrirCadastroP.Size = new Size(188, 37);
+            btnAbrirCadastroP.TabIndex = 5;
+            btnAbrirCadastroP.Text = "+ Adicionar Pedidos";
+            btnAbrirCadastroP.UseVisualStyleBackColor = false;
+            btnAbrirCadastroP.Click += btnAbrirCadastroP_Click;
+
             // 
             // TelaPedidos
             // 
@@ -524,12 +613,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1291, 620);
-            Controls.Add(btnEditarP);
-            Controls.Add(btnExcluirP);
-            Controls.Add(panel3);
+            Controls.Add(panelCadastroPedidos);
             Controls.Add(dgvPedidos);
             Controls.Add(label8);
-            Controls.Add(CadastrarNovoCliente);
             Controls.Add(panel1);
             Controls.Add(button1);
             Controls.Add(label1);
@@ -537,6 +623,7 @@
             Controls.Add(btnServicos);
             Controls.Add(btnClientes);
             Controls.Add(btnEstoque);
+            Controls.Add(groupBox1);
             MaximizeBox = false;
             Name = "TelaPedidos";
             ShowIcon = false;
@@ -552,6 +639,9 @@
             ((System.ComponentModel.ISupportInitialize)dgvPedidos).EndInit();
             CadastrarNovoCliente.ResumeLayout(false);
             CadastrarNovoCliente.PerformLayout();
+            panelCadastroPedidos.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -589,5 +679,11 @@
         private GroupBox CadastrarNovoCliente;
         private Button btnExcluirP;
         private Button btnEditarP;
+        private Button btnVoltarP;
+        private Panel panelCadastroPedidos;
+        private GroupBox groupBox1;
+        private Button btnAbrirCadastroP;
+        private Label label3;
+        private Label label9;
     }
 }
