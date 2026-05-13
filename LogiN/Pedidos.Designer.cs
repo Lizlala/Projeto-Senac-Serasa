@@ -516,6 +516,7 @@
             btnEditarP.TabIndex = 34;
             btnEditarP.Text = "Editar";
             btnEditarP.UseVisualStyleBackColor = false;
+            btnEditarP.Click += btnEditarP_Click;
             // 
             // TelaPedidos
             // 

@@ -40,6 +40,8 @@ namespace LogiN
                     conn.Open();
 
                     string sql = @"SELECT p.id_pedido_servico,
+                                          p.id_cliente,
+                                          p.id_servico,
                                           c.nome AS Clientes,
                                           s.nome_servico AS cadastro_servico,
                                           p.valor,
@@ -156,7 +158,9 @@ namespace LogiN
             // 🔥 scroll funcionando
             dgvPedidos.ScrollBars = ScrollBars.Vertical;
 
-            dgvPedidos.Columns["Id_pedido_servico"].Visible = false;
+            dgvPedidos.Columns["id_pedido_servico"].Visible = false;
+            dgvPedidos.Columns["id_cliente"].Visible = false;
+            dgvPedidos.Columns["id_servico"].Visible = false;
 
             dgvPedidos.Columns["Clientes"].HeaderText = "Cliente";
             dgvPedidos.Columns["cadastro_servico"].HeaderText = "Serviço";
@@ -210,7 +214,8 @@ namespace LogiN
                 }
                 else
                 {
-                    string sql = "UPDATE Pedidos_servicos SET id_cliente=@c, id_servico=@s, Valor=@v, Status_pedido=@st WHERE Id_pedido_servico=@id";
+
+                    string sql = "UPDATE Pedidos_servicos SET id_cliente=@c, id_servico=@s, Valor=@v, Status_pedido=@st WHERE id_pedido_servico=@id";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                     cmd.Parameters.AddWithValue("@c", clienteId);
@@ -244,6 +249,10 @@ namespace LogiN
                 }
 
                 CarregarPedidos();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um pedido!");
             }
         }
 
@@ -312,6 +321,30 @@ namespace LogiN
             e.KeyChar != (char)8)
             {
                 e.Handled = true;
+            }
+        }
+
+        //======================== EDITAR ==========================
+        private void btnEditarP_Click(object sender, EventArgs e)
+        {
+
+            if (dgvPedidos.CurrentRow != null)
+            {
+                modoEdicao = true;
+
+                idSelecionado = Convert.ToInt32(dgvPedidos.CurrentRow.Cells["id_pedido_servico"].Value);
+
+                cmbClienteP.SelectedValue = dgvPedidos.CurrentRow.Cells["id_cliente"].Value;
+
+                cmbTipodeServicoP.SelectedValue = dgvPedidos.CurrentRow.Cells["id_servico"].Value;
+
+                txtValorP.Text = dgvPedidos.CurrentRow.Cells["valor"].Value.ToString();
+
+                cmbStatusP.Text = dgvPedidos.CurrentRow.Cells["status_pedido"].Value.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um pedido!");
             }
         }
     }
