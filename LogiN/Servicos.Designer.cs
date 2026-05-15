@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaServicos));
             btnAbrirCadastroS = new Button();
             dgvServicos = new DataGridView();
@@ -60,6 +60,7 @@
             btnExcluirS = new Button();
             groupBox2 = new GroupBox();
             label2 = new Label();
+            label14 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvServicos).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -91,35 +92,35 @@
             // dgvServicos
             // 
             dgvServicos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.White;
-            dataGridViewCellStyle1.SelectionForeColor = Color.White;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvServicos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvServicos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             dgvServicos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvServicos.BackgroundColor = Color.White;
             dgvServicos.BorderStyle = BorderStyle.None;
             dgvServicos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvServicos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.White;
-            dataGridViewCellStyle2.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvServicos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvServicos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvServicos.ColumnHeadersHeight = 50;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.MediumAquamarine;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dgvServicos.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.MediumAquamarine;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvServicos.DefaultCellStyle = dataGridViewCellStyle6;
             dgvServicos.EnableHeadersVisualStyles = false;
             dgvServicos.Location = new Point(328, 303);
             dgvServicos.Margin = new Padding(3, 2, 3, 2);
@@ -176,6 +177,7 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(btnServicosS);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBox1);
@@ -186,7 +188,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(294, 620);
+            panel1.Size = new Size(294, 792);
             panel1.TabIndex = 20;
             // 
             // btnServicosS
@@ -293,7 +295,7 @@
             panelCadastroS.Controls.Add(CadastrarNovoCliente);
             panelCadastroS.Location = new Point(300, 2);
             panelCadastroS.Name = "panelCadastroS";
-            panelCadastroS.Size = new Size(992, 620);
+            panelCadastroS.Size = new Size(992, 790);
             panelCadastroS.TabIndex = 28;
             panelCadastroS.Visible = false;
             // 
@@ -468,12 +470,22 @@
             label2.TabIndex = 21;
             label2.Text = "Serviços";
             // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Century Gothic", 8F);
+            label14.Location = new Point(95, 767);
+            label14.Name = "label14";
+            label14.Size = new Size(89, 16);
+            label14.TabIndex = 12;
+            label14.Text = "by  ASTER TECH";
+            // 
             // TelaServicos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1291, 620);
+            ClientSize = new Size(1291, 792);
             Controls.Add(panelCadastroS);
             Controls.Add(dgvServicos);
             Controls.Add(panel1);
@@ -532,9 +544,6 @@
         private DataGridViewTextBoxColumn Column7;
         private DataGridViewTextBoxColumn Column8;
         private ComboBox cmbCategoria;
-        private Button button1;
-        private Panel panel3;
-        private PictureBox pictureBox3;
         private TextBox textBox1;
         private Button btnServicosS;
         private Button btnPedidosS;
@@ -548,5 +557,6 @@
         private Button btnExcluirS;
         private GroupBox groupBox2;
         private Label label2;
+        private Label label14;
     }
 }

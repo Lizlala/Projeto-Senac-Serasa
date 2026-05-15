@@ -69,6 +69,12 @@
             label3 = new Label();
             label9 = new Label();
             btnAbrirCadastroP = new Button();
+            lblFinalizado = new Label();
+            lblAndamento = new Label();
+            lblPendente = new Label();
+            lblTotal = new Label();
+            groupBox2 = new GroupBox();
+            label14 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -78,6 +84,7 @@
             CadastrarNovoCliente.SuspendLayout();
             panelCadastroPedidos.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -177,6 +184,7 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(label14);
             panel1.Controls.Add(btnServicosP);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(pictureBox2);
@@ -187,7 +195,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(294, 620);
+            panel1.Size = new Size(294, 792);
             panel1.TabIndex = 21;
             // 
             // btnServicosP
@@ -331,7 +339,7 @@
             dataGridViewCellStyle1.SelectionForeColor = Color.Black;
             dgvPedidos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvPedidos.BackgroundColor = Color.White;
+            dgvPedidos.BackgroundColor = Color.DarkGray;
             dgvPedidos.BorderStyle = BorderStyle.None;
             dgvPedidos.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dgvPedidos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
@@ -354,7 +362,7 @@
             dgvPedidos.DefaultCellStyle = dataGridViewCellStyle3;
             dgvPedidos.EnableHeadersVisualStyles = false;
             dgvPedidos.GridColor = Color.White;
-            dgvPedidos.Location = new Point(336, 306);
+            dgvPedidos.Location = new Point(336, 289);
             dgvPedidos.Margin = new Padding(3, 2, 3, 2);
             dgvPedidos.MultiSelect = false;
             dgvPedidos.Name = "dgvPedidos";
@@ -363,7 +371,7 @@
             dgvPedidos.RowHeadersWidth = 51;
             dgvPedidos.RowTemplate.Height = 28;
             dgvPedidos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvPedidos.Size = new Size(923, 303);
+            dgvPedidos.Size = new Size(923, 334);
             dgvPedidos.TabIndex = 35;
             // 
             // label8
@@ -543,14 +551,13 @@
             btnEditarP.Text = "Editar";
             btnEditarP.UseVisualStyleBackColor = false;
             btnEditarP.Click += btnEditarP_Click;
-
             // 
             // panelCadastroPedidos
             // 
             panelCadastroPedidos.Controls.Add(CadastrarNovoCliente);
-            panelCadastroPedidos.Location = new Point(300, 0);
+            panelCadastroPedidos.Location = new Point(1265, 12);
             panelCadastroPedidos.Name = "panelCadastroPedidos";
-            panelCadastroPedidos.Size = new Size(991, 620);
+            panelCadastroPedidos.Size = new Size(991, 790);
             panelCadastroPedidos.TabIndex = 36;
             panelCadastroPedidos.Visible = false;
             // 
@@ -605,14 +612,75 @@
             btnAbrirCadastroP.Text = "+ Adicionar Pedidos";
             btnAbrirCadastroP.UseVisualStyleBackColor = false;
             btnAbrirCadastroP.Click += btnAbrirCadastroP_Click;
-
+            // 
+            // lblFinalizado
+            // 
+            lblFinalizado.AutoSize = true;
+            lblFinalizado.Font = new Font("Century Gothic", 9.75F);
+            lblFinalizado.Location = new Point(32, 58);
+            lblFinalizado.Name = "lblFinalizado";
+            lblFinalizado.Size = new Size(82, 17);
+            lblFinalizado.TabIndex = 38;
+            lblFinalizado.Text = "Finalizados:";
+            // 
+            // lblAndamento
+            // 
+            lblAndamento.AutoSize = true;
+            lblAndamento.Font = new Font("Century Gothic", 9.75F);
+            lblAndamento.Location = new Point(263, 58);
+            lblAndamento.Name = "lblAndamento";
+            lblAndamento.Size = new Size(90, 17);
+            lblAndamento.TabIndex = 39;
+            lblAndamento.Text = "Andamento:";
+            // 
+            // lblPendente
+            // 
+            lblPendente.AutoSize = true;
+            lblPendente.Font = new Font("Century Gothic", 9.75F);
+            lblPendente.Location = new Point(496, 58);
+            lblPendente.Name = "lblPendente";
+            lblPendente.Size = new Size(74, 17);
+            lblPendente.TabIndex = 40;
+            lblPendente.Text = "Pendente:";
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Century Gothic", 9.75F);
+            lblTotal.Location = new Point(716, 58);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(82, 17);
+            lblTotal.TabIndex = 41;
+            lblTotal.Text = "Total Geral:";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(lblPendente);
+            groupBox2.Controls.Add(lblTotal);
+            groupBox2.Controls.Add(lblFinalizado);
+            groupBox2.Controls.Add(lblAndamento);
+            groupBox2.Location = new Point(336, 643);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(923, 128);
+            groupBox2.TabIndex = 42;
+            groupBox2.TabStop = false;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Century Gothic", 8F);
+            label14.Location = new Point(87, 767);
+            label14.Name = "label14";
+            label14.Size = new Size(89, 16);
+            label14.TabIndex = 12;
+            label14.Text = "by  ASTER TECH";
             // 
             // TelaPedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1291, 620);
+            ClientSize = new Size(1291, 792);
             Controls.Add(panelCadastroPedidos);
             Controls.Add(dgvPedidos);
             Controls.Add(label8);
@@ -624,6 +692,7 @@
             Controls.Add(btnClientes);
             Controls.Add(btnEstoque);
             Controls.Add(groupBox1);
+            Controls.Add(groupBox2);
             MaximizeBox = false;
             Name = "TelaPedidos";
             ShowIcon = false;
@@ -642,6 +711,8 @@
             panelCadastroPedidos.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -685,5 +756,11 @@
         private Button btnAbrirCadastroP;
         private Label label3;
         private Label label9;
+        private Label lblFinalizado;
+        private Label lblAndamento;
+        private Label lblPendente;
+        private Label lblTotal;
+        private GroupBox groupBox2;
+        private Label label14;
     }
 }

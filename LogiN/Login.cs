@@ -1,197 +1,155 @@
 using MySql.Data.MySqlClient;
-using System.Drawing.Text;
-using System.Net;
-using System.Net.Mail;
-using System.Text.RegularExpressions;
-using System.Web;
+using System;
+using System.Windows.Forms;
 
 namespace LogiN
 {
-    public partial class Login : System.Windows.Forms.Form
+    public partial class Login : Form
     {
-        string conexao = "server=localhost; uid = root; PWd =; Database=fiodeouro;";
+        string conexao = "server=localhost;uid=root;pwd=;database=fiodeouro;";
+
         public Login()
         {
             InitializeComponent();
-            this.AcceptButton = btnEntrar;
-            EsqueceuSenhaPainel.Visible = false;
+            this.AcceptButton = btnEntrarL;
+
+            PanelCadastroUsuarioL.Visible = false;
+            panelRedefinirSenhaL.Visible = false;
         }
 
-        private string GerarNovaSenha()
+        private void btnEntrarL_Click(object sender, EventArgs e)
         {
-            return Guid.NewGuid().ToString("N").Substring(0, 8);
-        }
-
-        private void btnEntrar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        //Esqueceu Senha.
-        private void EnviarEmail(string emailDestino, string novaSenha)
-        {
-
-        }
-
-
-
-
-        private void btnEntrar_Click_1(object sender, EventArgs e)
-        {
-            string usuario = txtUsuario.Text;
-            string senha = txtSenha.Text;
-
-
-
-            if (usuario == "Ad" && senha == "123")
+            using (MySqlConnection con = new MySqlConnection(conexao))
             {
-                TelaEstoque principal = new TelaEstoque();
-                principal.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Usuário ou senha incorretos!", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try
+                {
+                    con.Open();
+
+                    string sql = "SELECT * FROM Login_usuario WHERE nome=@nome AND senha=@senha";
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                    cmd.Parameters.AddWithValue("@nome", txtUsuarioL.Text);
+                    cmd.Parameters.AddWithValue("@senha", txtSenhaL.Text);
+
+                    MySqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        MessageBox.Show("Login realizado com sucesso!");
+
+                        TelaEstoque tela = new TelaEstoque();
+                        tela.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuário ou senha incorretos!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                }
             }
         }
 
-        private void txtSenha_TextChanged(object sender, EventArgs e)
+        private void btncadastraL_Click(object sender, EventArgs e)
         {
-            txtSenha.PasswordChar = '*';
+            PanelCadastroUsuarioL.Visible = true;
         }
 
-
-        private void btnSalvarS_Click(object sender, EventArgs e)
+        private void btnSalvarCadastroL_Click(object sender, EventArgs e)
         {
-            MySqlConnection con = new MySqlConnection(conexao);
-            try
+            if (txtNomeCadastroL.Text == "" || txtCpfCadastroL.Text == "" || txtSenhaCadastroL.Text == "")
             {
-                con.Open();
-                string sql = "INSERT INTO Login_usuário(nome, cpf,senha) VALUES (@nome,@cpf,@senha);";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@nome", txtNome.Text);
-                cmd.Parameters.AddWithValue("@cpf", txtCpf.Text);
-                cmd.Parameters.AddWithValue("@senha", txtcadastroSenha.Text);
-
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Cadastro feito com sucesso, parabéns!");
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-        }
-
-        private void btncadastraL_Click_1(object sender, EventArgs e)
-        {
-            PainelUsuario.Visible = true;
-        }
-
-
-        //Referete ao esquecimento de senha.
-        private void EqueceuSenha_Click(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            EsqueceuSenhaPainel.Visible = true;
-
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            
-
-
-            if (string.IsNullOrWhiteSpace(txtTelefone.Text))
-            {
-                MessageBox.Show("Informe o CPF.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Preencha todos os campos!");
                 return;
             }
 
-
-            MessageBox.Show(
-                "Nova senha cadastrda com sucesso.",
-                "Sucesso",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
-
-            EsqueceuSenhaPainel.Visible = false;
-
-            MySqlConnection con = new MySqlConnection(conexao);
-            try
+            using (MySqlConnection con = new MySqlConnection(conexao))
             {
-                con.Open();
-                string sql = "INSERT INTO Login_usuário(CPF,Senha) VALUES (@CPF,@Senha);";
-                MySqlCommand cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@CPF", txtTelefone.Text);
-                cmd.Parameters.AddWithValue("@Senha", txtSenhaE.Text);
+                try
+                {
+                    con.Open();
 
-                cmd.ExecuteNonQuery();
-                con.Close();
+                    string sql = "INSERT INTO Login_usuario (nome, cpf, senha) VALUES (@nome,@cpf,@senha)";
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                    cmd.Parameters.AddWithValue("@nome", txtNomeCadastroL.Text);
+                    cmd.Parameters.AddWithValue("@cpf", txtCpfCadastroL.Text);
+                    cmd.Parameters.AddWithValue("@senha", txtSenhaCadastroL.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Cadastro realizado com sucesso!");
+
+                    txtNomeCadastroL.Clear();
+                    txtCpfCadastroL.Clear();
+                    txtSenhaCadastroL.Clear();
+
+                    PanelCadastroUsuarioL.Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-
-            }
-
-
-
-
-            if (string.IsNullOrWhiteSpace(txtTelefone.Text))
-            {
-                MessageBox.Show("Informe o CPF.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string novaSenha = GerarNovaSenha();
-
-            EnviarEmail(txtTelefone.Text, novaSenha);
-
-            
-
-            // Voltar para tela principal
-            EsqueceuSenhaPainel.Visible = false;
-
-
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            EsqueceuSenhaPainel.Visible = false;
-
         }
 
         private void EqueceuSenha_Click(object sender, EventArgs e)
         {
-            EsqueceuSenhaPainel.Visible = true;
+            panelRedefinirSenhaL.Visible = true;
+        }
+        private void btnRedefinirSalvarL_Click(object sender, EventArgs e)
+        {
+            if (txtCpfRedefinirL.Text == "")
+            {
+                MessageBox.Show("Digite o CPF!");
+                return;
+            }
+
+            string novaSenha = Guid.NewGuid().ToString("N").Substring(0, 8);
+
+            using (MySqlConnection con = new MySqlConnection(conexao))
+            {
+                try
+                {
+                    con.Open();
+
+                    string verifica = "SELECT COUNT(*) FROM Login_usuario WHERE cpf=@cpf";
+                    MySqlCommand cmdVerifica = new MySqlCommand(verifica, con);
+                    cmdVerifica.Parameters.AddWithValue("@cpf", txtCpfRedefinirL.Text);
+
+                    int existe = Convert.ToInt32(cmdVerifica.ExecuteScalar());
+
+                    if (existe == 0)
+                    {
+                        MessageBox.Show("CPF não encontrado!");
+                        return;
+                    }
+
+                    string sql = "UPDATE Login_usuario SET senha=@senha WHERE cpf=@cpf";
+                    MySqlCommand cmd = new MySqlCommand(sql, con);
+
+                    cmd.Parameters.AddWithValue("@senha", novaSenha);
+                    cmd.Parameters.AddWithValue("@cpf", txtCpfRedefinirL.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Nova senha: " + novaSenha);
+
+                    panelRedefinirSenhaL.Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                }
+            }
         }
 
-        private void label11_Click(object sender, EventArgs e)
+        private void btnVoltarRedefinirL_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            EsqueceuSenhaPainel.Visible = false;
-        }
-
-        private void btnVoltarS_Click(object sender, EventArgs e)
-        {
-            PainelUsuario.Visible = false;
+            panelRedefinirSenhaL.Visible = false;
         }
     }
 }
