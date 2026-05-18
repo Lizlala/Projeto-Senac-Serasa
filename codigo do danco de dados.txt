@@ -1,30 +1,37 @@
+CREATE DATABASE IF NOT EXISTS FioDeOuro;
 USE FioDeOuro;
 
-CREATE TABLE clientes (
+CREATE TABLE IF NOT EXISTS clientes (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(20) NOT NULL,
     telefone VARCHAR(11),
     cpf VARCHAR(11) UNIQUE
 );
 
-CREATE TABLE login_usuario (
+
+CREATE TABLE IF NOT EXISTS login_usuario (
     id_login_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) UNIQUE NOT NULL,
-    cpf VARCHAR(11) NOT NULL,
-    senha VARCHAR(6) UNIQUE NOT NULL
+    nome VARCHAR(20) UNIQUE NOT NULL,
+    cpf VARCHAR(11) UNIQUE NOT NULL,
+    senha VARCHAR(6) NOT NULL
 );
 
-CREATE TABLE cadastro_servico (
+
+CREATE TABLE IF NOT EXISTS cadastro_servico (
     id_cadastro_servico INT AUTO_INCREMENT PRIMARY KEY,
     nome_servico VARCHAR(50) NOT NULL,
     valor DECIMAL(10,2)
 );
 
-CREATE TABLE pedidos_servicos (
+
+CREATE TABLE IF NOT EXISTS pedidos_servicos (
     id_pedido_servico INT AUTO_INCREMENT PRIMARY KEY,
+
     id_cliente INT NOT NULL,
     id_servico INT NOT NULL,
+
     valor DECIMAL(10,2) NOT NULL,
+
     status_pedido VARCHAR(50),
 
     CONSTRAINT fk_pedido_cliente
@@ -36,25 +43,25 @@ CREATE TABLE pedidos_servicos (
         REFERENCES cadastro_servico(id_cadastro_servico)
 );
 
-CREATE TABLE estoque (
+
+CREATE TABLE IF NOT EXISTS estoque (
     id_estoque INT AUTO_INCREMENT PRIMARY KEY,
     nome_item VARCHAR(50) NOT NULL,
     quantidade INT NOT NULL,
     categoria VARCHAR(50) NOT NULL
 );
 
-SELECT p.id_cliente
-FROM pedidos_servicos p;
 
-SELECT p.id_pedido_servico,
-       p.id_cliente,
-       p.id_servico,
-       c.nome AS Clientes,
-       s.nome_servico AS cadastro_servico,
-       p.valor,
-       p.status_pedido
+SELECT 
+    p.id_pedido_servico,
+    p.id_cliente,
+    p.id_servico,
+    c.nome AS Clientes,
+    s.nome_servico AS cadastro_servico,
+    p.valor,
+    p.status_pedido
 FROM pedidos_servicos p
-JOIN clientes c ON p.id_cliente = c.id_cliente
-JOIN cadastro_servico s ON p.id_servico = s.id_cadastro_servico;
-
-
+JOIN clientes c 
+    ON p.id_cliente = c.id_cliente
+JOIN cadastro_servico s 
+    ON p.id_servico = s.id_cadastro_servico;
