@@ -25,6 +25,9 @@ namespace LogiN
             panelCadastroCliente.Visible = false;
             dgvClientes.Visible = true;
 
+            txtCPF.MaxLength = 11;
+            txtTelefoneC.MaxLength = 11;
+
             CarregarClientes();
         }
 
@@ -58,20 +61,16 @@ namespace LogiN
         {
             dgvClientes.EnableHeadersVisualStyles = false;
 
-            // FONTES
             Font fontePadrao = new Font("Century Gothic", 10F, FontStyle.Regular);
             Font fonteCabecalho = new Font("Century Gothic", 10F, FontStyle.Bold);
 
-            // COR PADRÃO (igual às outras telas)
             Color corSelecaoLinha = Color.FromArgb(191, 165, 187);
 
-            // FUNDO E BORDAS
             dgvClientes.BackgroundColor = Color.White;
             dgvClientes.GridColor = Color.White;
             dgvClientes.BorderStyle = BorderStyle.None;
             dgvClientes.CellBorderStyle = DataGridViewCellBorderStyle.None;
 
-            // CABEÇALHO
             dgvClientes.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvClientes.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             dgvClientes.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.White;
@@ -80,7 +79,6 @@ namespace LogiN
             dgvClientes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvClientes.ColumnHeadersHeight = 35;
 
-            // CÉLULAS
             dgvClientes.DefaultCellStyle.BackColor = Color.White;
             dgvClientes.DefaultCellStyle.ForeColor = Color.Black;
             dgvClientes.DefaultCellStyle.SelectionBackColor = corSelecaoLinha;
@@ -88,14 +86,12 @@ namespace LogiN
             dgvClientes.DefaultCellStyle.Font = fontePadrao;
             dgvClientes.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-            // LINHAS ALTERNADAS
             dgvClientes.AlternatingRowsDefaultCellStyle.BackColor = Color.White;
             dgvClientes.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
             dgvClientes.AlternatingRowsDefaultCellStyle.SelectionBackColor = corSelecaoLinha;
             dgvClientes.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.Black;
             dgvClientes.AlternatingRowsDefaultCellStyle.Font = fontePadrao;
 
-            // COMPORTAMENTO
             dgvClientes.RowHeadersVisible = false;
             dgvClientes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvClientes.MultiSelect = false;
@@ -108,17 +104,14 @@ namespace LogiN
             dgvClientes.RowTemplate.Height = 35;
             dgvClientes.ScrollBars = ScrollBars.Vertical;
 
-            // GARANTE PADRÃO NAS LINHAS
             foreach (DataGridViewRow row in dgvClientes.Rows)
             {
                 row.DefaultCellStyle.Font = fontePadrao;
             }
 
-            // 🔥 ESCONDE ID
             if (dgvClientes.Columns.Contains("Id_cliente"))
                 dgvClientes.Columns["Id_cliente"].Visible = false;
 
-            // 🔥 (opcional mas profissional)
             if (dgvClientes.Columns.Contains("Nome"))
                 dgvClientes.Columns["Nome"].HeaderText = "Nome";
 
@@ -128,7 +121,6 @@ namespace LogiN
             if (dgvClientes.Columns.Contains("CPF"))
                 dgvClientes.Columns["CPF"].HeaderText = "CPF";
 
-            // REMOVE SELEÇÃO INICIAL
             dgvClientes.ClearSelection();
             dgvClientes.CurrentCell = null;
         }
@@ -152,11 +144,17 @@ namespace LogiN
             {
                 modoEdicao = true;
 
-                idSelecionado = Convert.ToInt32(dgvClientes.CurrentRow.Cells["Id_cliente"].Value);
+                idSelecionado = Convert.ToInt32(
+                    dgvClientes.CurrentRow.Cells["Id_cliente"].Value);
 
-                txtNomeC.Text = dgvClientes.CurrentRow.Cells["Nome"].Value.ToString();
-                txtCPF.Text = dgvClientes.CurrentRow.Cells["CPF"].Value.ToString();
-                txtTelefoneC.Text = dgvClientes.CurrentRow.Cells["Telefone"].Value.ToString();
+                txtNomeC.Text =
+                    dgvClientes.CurrentRow.Cells["Nome"].Value.ToString();
+
+                txtCPF.Text =
+                    dgvClientes.CurrentRow.Cells["CPF"].Value.ToString();
+
+                txtTelefoneC.Text =
+                    dgvClientes.CurrentRow.Cells["Telefone"].Value.ToString();
 
                 dgvClientes.Visible = false;
                 panelCadastroCliente.Visible = true;
@@ -170,64 +168,101 @@ namespace LogiN
 
         private void btnSalvarC_Click(object sender, EventArgs e)
         {
-            string nome = txtNomeC.Text;
-            string cpf = txtCPF.Text;
-            string telefone = txtTelefoneC.Text;
+            string nome = txtNomeC.Text.Trim();
+            string cpf = txtCPF.Text.Trim();
+            string telefone = txtTelefoneC.Text.Trim();
 
-            if (txtCPF.Text.Length < 11 || txtTelefoneC.Text.Length < 11)
+            if (string.IsNullOrWhiteSpace(nome) ||
+                string.IsNullOrWhiteSpace(cpf) ||
+                string.IsNullOrWhiteSpace(telefone))
             {
-                MessageBox.Show("CPF ou Telefone inválidos");
+                MessageBox.Show("Preencha todos os campos!");
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(nome) &&
-                !string.IsNullOrWhiteSpace(cpf) &&
-                !string.IsNullOrWhiteSpace(telefone))
+            if (cpf.Length != 11)
             {
-                using (MySqlConnection conn = new MySqlConnection(conexaoString))
-                {
-                    try
-                    {
-                        conn.Open();
-
-                        if (!modoEdicao)
-                        {
-                            string sql = "INSERT INTO Clientes (Nome, CPF, Telefone) VALUES (@nome, @cpf, @tel)";
-                            MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                            cmd.Parameters.AddWithValue("@nome", nome);
-                            cmd.Parameters.AddWithValue("@cpf", cpf);
-                            cmd.Parameters.AddWithValue("@tel", telefone);
-
-                            cmd.ExecuteNonQuery();
-                        }
-                        else
-                        {
-                            string sql = "UPDATE Clientes SET Nome=@nome, CPF=@cpf, Telefone=@tel WHERE Id_cliente=@id";
-                            MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                            cmd.Parameters.AddWithValue("@nome", nome);
-                            cmd.Parameters.AddWithValue("@cpf", cpf);
-                            cmd.Parameters.AddWithValue("@tel", telefone);
-                            cmd.Parameters.AddWithValue("@id", idSelecionado);
-
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        panelCadastroCliente.Visible = false;
-                        dgvClientes.Visible = true; 
-
-                        CarregarClientes();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Erro ao salvar:\n" + ex.ToString());
-                    }
-                }
+                MessageBox.Show("CPF deve conter 11 dígitos!");
+                return;
             }
-            else
+
+            if (telefone.Length != 11)
             {
-                MessageBox.Show("Preencha todos os campos!");
+                MessageBox.Show("Telefone deve conter 11 dígitos!");
+                return;
+            }
+
+            using (MySqlConnection conn = new MySqlConnection(conexaoString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    if (!modoEdicao)
+                    {
+                        string verificaCpf =
+                            "SELECT COUNT(*) FROM Clientes WHERE CPF=@cpf";
+
+                        MySqlCommand verifica =
+                            new MySqlCommand(verificaCpf, conn);
+
+                        verifica.Parameters.AddWithValue("@cpf", cpf);
+
+                        int existe =
+                            Convert.ToInt32(verifica.ExecuteScalar());
+
+                        if (existe > 0)
+                        {
+                            MessageBox.Show("CPF já cadastrado!");
+                            return;
+                        }
+
+                        string sql =
+                            "INSERT INTO Clientes (Nome, CPF, Telefone) " +
+                            "VALUES (@nome, @cpf, @tel)";
+
+                        MySqlCommand cmd =
+                            new MySqlCommand(sql, conn);
+
+                        cmd.Parameters.AddWithValue("@nome", nome);
+                        cmd.Parameters.AddWithValue("@cpf", cpf);
+                        cmd.Parameters.AddWithValue("@tel", telefone);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Cliente cadastrado!");
+                    }
+                    else
+                    {
+                        string sql =
+                            "UPDATE Clientes " +
+                            "SET Nome=@nome, CPF=@cpf, Telefone=@tel " +
+                            "WHERE Id_cliente=@id";
+
+                        MySqlCommand cmd =
+                            new MySqlCommand(sql, conn);
+
+                        cmd.Parameters.AddWithValue("@nome", nome);
+                        cmd.Parameters.AddWithValue("@cpf", cpf);
+                        cmd.Parameters.AddWithValue("@tel", telefone);
+                        cmd.Parameters.AddWithValue("@id", idSelecionado);
+
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Cliente atualizado!");
+
+                        modoEdicao = false;
+                    }
+
+                    panelCadastroCliente.Visible = false;
+                    dgvClientes.Visible = true;
+
+                    CarregarClientes();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar:\n" + ex.ToString());
+                }
             }
         }
 
@@ -247,25 +282,32 @@ namespace LogiN
                     int id = Convert.ToInt32(
                         dgvClientes.CurrentRow.Cells["Id_cliente"].Value);
 
-                    using (MySqlConnection conn = new MySqlConnection(conexaoString))
+                    using (MySqlConnection conn =
+                        new MySqlConnection(conexaoString))
                     {
                         try
                         {
                             conn.Open();
 
-                            string sql = "DELETE FROM Clientes WHERE Id_cliente=@id";
-                            MySqlCommand cmd = new MySqlCommand(sql, conn);
+                            string sql =
+                                "DELETE FROM Clientes WHERE Id_cliente=@id";
+
+                            MySqlCommand cmd =
+                                new MySqlCommand(sql, conn);
+
                             cmd.Parameters.AddWithValue("@id", id);
 
                             cmd.ExecuteNonQuery();
 
-                            MessageBox.Show("Cliente excluído com sucesso!");
+                            MessageBox.Show(
+                                "Cliente excluído com sucesso!");
 
                             CarregarClientes();
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Erro ao excluir:\n" + ex.ToString());
+                            MessageBox.Show(
+                                "Erro ao excluir:\n" + ex.ToString());
                         }
                     }
                 }
@@ -275,7 +317,6 @@ namespace LogiN
                 MessageBox.Show("Selecione um cliente!");
             }
         }
-
 
         private void btnVoltarC_Click(object sender, EventArgs e)
         {
@@ -287,23 +328,33 @@ namespace LogiN
         {
             string termo = txtBuscaC.Text.ToLower();
 
-            CurrencyManager cm = (CurrencyManager)BindingContext[dgvClientes.DataSource];
+            CurrencyManager cm =
+                (CurrencyManager)BindingContext[dgvClientes.DataSource];
+
             cm.SuspendBinding();
 
             foreach (DataGridViewRow row in dgvClientes.Rows)
             {
-                if (row.IsNewRow) continue;
+                if (row.IsNewRow)
+                    continue;
 
-                string nome = row.Cells["Nome"].Value.ToString().ToLower();
-                string cpf = row.Cells["CPF"].Value.ToString().ToLower();
-                string tel = row.Cells["Telefone"].Value.ToString().ToLower();
+                string nome =
+                    row.Cells["Nome"].Value.ToString().ToLower();
 
-                row.Visible = nome.Contains(termo) || cpf.Contains(termo) || tel.Contains(termo);
+                string cpf =
+                    row.Cells["CPF"].Value.ToString().ToLower();
+
+                string tel =
+                    row.Cells["Telefone"].Value.ToString().ToLower();
+
+                row.Visible =
+                    nome.Contains(termo) ||
+                    cpf.Contains(termo) ||
+                    tel.Contains(termo);
             }
 
             cm.ResumeBinding();
         }
-
 
         private void btnEstoqueC_Click(object sender, EventArgs e)
         {
@@ -323,12 +374,6 @@ namespace LogiN
             this.Hide();
         }
 
-
-        private void txtCPF_TextChanged(object sender, EventArgs e)
-        {
-          
-        }
-
         private void txtNomeC_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsLetter(e.KeyChar) &&
@@ -339,10 +384,31 @@ namespace LogiN
             }
         }
 
+        private void txtCPF_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) &&
+                e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+
+            if (txtCPF.Text.Length >= 11 &&
+                e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+        }
+
         private void txtTelefoneC_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) &&
-            e.KeyChar != (char)8)
+                e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+
+            if (txtTelefoneC.Text.Length >= 11 &&
+                e.KeyChar != (char)8)
             {
                 e.Handled = true;
             }

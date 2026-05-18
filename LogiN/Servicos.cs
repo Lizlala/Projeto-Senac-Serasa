@@ -1,8 +1,6 @@
-﻿using K4os.Compression.LZ4.Internal;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
-using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -26,6 +24,8 @@ namespace LogiN
         {
             panelCadastroS.Visible = false;
             dgvServicos.Visible = true;
+
+            cmbTipodeServicoS.Items.Clear();
 
             cmbTipodeServicoS.Items.Add("Barra");
             cmbTipodeServicoS.Items.Add("Ajuste");
@@ -63,20 +63,16 @@ namespace LogiN
         {
             dgvServicos.EnableHeadersVisualStyles = false;
 
-            // FONTES
             Font fontePadrao = new Font("Century Gothic", 10F, FontStyle.Regular);
             Font fonteCabecalho = new Font("Century Gothic", 10F, FontStyle.Bold);
 
-            // COR PADRÃO DO SISTEMA
             Color corSelecaoLinha = Color.FromArgb(191, 165, 187);
 
-            // FUNDO E BORDAS
             dgvServicos.BackgroundColor = Color.White;
             dgvServicos.GridColor = Color.White;
             dgvServicos.BorderStyle = BorderStyle.None;
             dgvServicos.CellBorderStyle = DataGridViewCellBorderStyle.None;
 
-            // CABEÇALHO
             dgvServicos.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvServicos.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             dgvServicos.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.White;
@@ -85,7 +81,6 @@ namespace LogiN
             dgvServicos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvServicos.ColumnHeadersHeight = 35;
 
-            // CÉLULAS
             dgvServicos.DefaultCellStyle.BackColor = Color.White;
             dgvServicos.DefaultCellStyle.ForeColor = Color.Black;
             dgvServicos.DefaultCellStyle.SelectionBackColor = corSelecaoLinha;
@@ -93,14 +88,12 @@ namespace LogiN
             dgvServicos.DefaultCellStyle.Font = fontePadrao;
             dgvServicos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-            // LINHAS ALTERNADAS
             dgvServicos.AlternatingRowsDefaultCellStyle.BackColor = Color.White;
             dgvServicos.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
             dgvServicos.AlternatingRowsDefaultCellStyle.SelectionBackColor = corSelecaoLinha;
             dgvServicos.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.Black;
             dgvServicos.AlternatingRowsDefaultCellStyle.Font = fontePadrao;
 
-            // COMPORTAMENTO
             dgvServicos.RowHeadersVisible = false;
             dgvServicos.ReadOnly = true;
             dgvServicos.AllowUserToAddRows = false;
@@ -113,17 +106,14 @@ namespace LogiN
             dgvServicos.RowTemplate.Height = 35;
             dgvServicos.ScrollBars = ScrollBars.Vertical;
 
-            // GARANTE PADRÃO NAS LINHAS
             foreach (DataGridViewRow row in dgvServicos.Rows)
             {
                 row.DefaultCellStyle.Font = fontePadrao;
             }
 
-            // 🔥 ESCONDE ID
             if (dgvServicos.Columns.Contains("Id_cadastro_servico"))
                 dgvServicos.Columns["Id_cadastro_servico"].Visible = false;
 
-            // 🔥 HEADERS PADRÃO
             if (dgvServicos.Columns.Contains("nome_servico"))
                 dgvServicos.Columns["nome_servico"].HeaderText = "Tipo de Serviço";
 
@@ -167,6 +157,8 @@ namespace LogiN
 
             panelCadastroS.Visible = true;
             panelCadastroS.BringToFront();
+
+            dgvServicos.Visible = false;
         }
 
         private void btnEditarS_Click(object sender, EventArgs e)
@@ -298,6 +290,8 @@ namespace LogiN
         {
             panelCadastroS.Visible = false;
             dgvServicos.Visible = true;
+
+            dgvServicos.ClearSelection();
         }
 
         private void txtBuscaS_TextChanged(object sender, EventArgs e)
