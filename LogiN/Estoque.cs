@@ -56,20 +56,16 @@ namespace LogiN
         {
             dgvEstoque.EnableHeadersVisualStyles = false;
 
-            // Fonte padrão
             Font fontePadrao = new Font("Century Gothic", 10F, FontStyle.Regular);
             Font fonteCabecalho = new Font("Century Gothic", 10F, FontStyle.Bold);
 
-            // Cor seleção
             Color corSelecaoLinha = Color.FromArgb(191, 165, 187);
 
-            // FUNDO
             dgvEstoque.BackgroundColor = Color.White;
             dgvEstoque.GridColor = Color.White;
             dgvEstoque.BorderStyle = BorderStyle.None;
             dgvEstoque.CellBorderStyle = DataGridViewCellBorderStyle.None;
 
-            // CABEÇALHO
             dgvEstoque.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvEstoque.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             dgvEstoque.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.White;
@@ -79,7 +75,6 @@ namespace LogiN
             dgvEstoque.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvEstoque.ColumnHeadersHeight = 35;
 
-            // LINHAS
             dgvEstoque.DefaultCellStyle.BackColor = Color.White;
             dgvEstoque.DefaultCellStyle.ForeColor = Color.Black;
             dgvEstoque.DefaultCellStyle.SelectionBackColor = corSelecaoLinha;
@@ -87,38 +82,29 @@ namespace LogiN
             dgvEstoque.DefaultCellStyle.Font = fontePadrao;
             dgvEstoque.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-            // REMOVE ZEBRA
             dgvEstoque.AlternatingRowsDefaultCellStyle.BackColor = Color.White;
             dgvEstoque.AlternatingRowsDefaultCellStyle.ForeColor = Color.Black;
             dgvEstoque.AlternatingRowsDefaultCellStyle.SelectionBackColor = corSelecaoLinha;
 
             dgvEstoque.AlternatingRowsDefaultCellStyle.SelectionForeColor = Color.Black;
-
             dgvEstoque.AlternatingRowsDefaultCellStyle.Font = fontePadrao;
 
-            // COMPORTAMENTO
             dgvEstoque.RowHeadersVisible = false;
             dgvEstoque.ReadOnly = true;
             dgvEstoque.AllowUserToAddRows = false;
             dgvEstoque.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
             dgvEstoque.MultiSelect = false;
-
             dgvEstoque.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
             dgvEstoque.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-
             dgvEstoque.RowTemplate.Height = 35;
-
             dgvEstoque.ScrollBars = ScrollBars.Vertical;
 
-            // GARANTE MESMA FONTE EM TODAS AS LINHAS
             foreach (DataGridViewRow row in dgvEstoque.Rows)
             {
                 row.DefaultCellStyle.Font = fontePadrao;
             }
 
-            // COLUNAS
             if (dgvEstoque.Columns.Contains("id_estoque"))
                 dgvEstoque.Columns["id_estoque"].Visible = false;
 

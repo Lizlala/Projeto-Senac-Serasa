@@ -46,13 +46,12 @@ namespace LogiN
             if (!panelValores.Controls.Contains(lblAndamento)) panelValores.Controls.Add(lblAndamento);
             if (!panelValores.Controls.Contains(lblPendentes)) panelValores.Controls.Add(lblPendentes);
             if (!panelValores.Controls.Contains(lblTotalGeral)) panelValores.Controls.Add(lblTotalGeral);
-            
-            //cores
-            lblFinalizados.ForeColor = Color.FromArgb(120, 85, 120);
+
+            lblFinalizados.ForeColor = Color.FromArgb(191, 165, 187);
             lblAndamento.ForeColor = Color.FromArgb(191, 165, 187);
-            lblPendentes.ForeColor = Color.FromArgb(150, 110, 145);
+            lblPendentes.ForeColor = Color.FromArgb(191, 165, 187);
             lblTotalGeral.ForeColor = Color.FromArgb(70, 50, 70);
-           
+
             Font fonteCards = new Font("Century Gothic", 12F, FontStyle.Bold);
             lblFinalizados.Font = fonteCards;
             lblAndamento.Font = fonteCards;
@@ -64,19 +63,16 @@ namespace LogiN
             lblPendentes.AutoSize = true;
             lblTotalGeral.AutoSize = true;
 
-            //panel
             panelValores.BorderStyle = BorderStyle.None;
             panelValores.BackColor = Color.White;
-            panelValores.Height = 90;
-            panelValores.Padding = new Padding(10);
+            panelValores.Height = 110;
+            panelValores.Padding = new Padding(20, 25, 20, 10);
 
-            //posicionamento
-            lblFinalizados.Location = new Point(20, 15);
-            lblAndamento.Location = new Point(250, 15);
-            lblPendentes.Location = new Point(500, 15);
+            lblFinalizados.Location = new Point(138, 23);
+            lblAndamento.Location = new Point(469, 23);
+            lblPendentes.Location = new Point(800, 23);
 
-            lblTotalGeral.AutoSize = true;
-            lblTotalGeral.Location = new Point(250, 50);
+            lblTotalGeral.Location = new Point(700, 85);
 
             lblFinalizados.Visible = true;
             lblAndamento.Visible = true;
@@ -91,6 +87,7 @@ namespace LogiN
             dgvPedidos.Visible = true;
             panelCadastroPedidos.Visible = false;
         }
+
 
         private void CarregarPedidos()
         {
@@ -294,7 +291,7 @@ namespace LogiN
             {
                 if (cmbClienteP.SelectedIndex == -1 || cmbTipodeServicoP.SelectedIndex == -1 || string.IsNullOrWhiteSpace(cmbStatusP.Text))
                 {
-                    MessageBox.Show("Preencha todos os dados obrigatórios do pedido antes de salvar.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Preencha todos os campos", "Atenção!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -334,7 +331,7 @@ namespace LogiN
                         cmd.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show(modoEdicao ? "Pedido atualizado com sucesso!" : "Pedido cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(modoEdicao ? "Pedido atualizado" : "Pedido cadastrado", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     modoEdicao = false;
                 }
 
@@ -352,8 +349,8 @@ namespace LogiN
             if (dgvPedidos.CurrentRow != null)
             {
                 DialogResult confirmacao = MessageBox.Show(
-                    "Tem certeza que deseja excluir permanentemente este pedido?",
-                    "Confirmação de Exclusão",
+                    "Tem certeza que deseja excluir este pedido?",
+                    "Confirme a Exclusão",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
 
@@ -373,13 +370,13 @@ namespace LogiN
                         }
                     }
 
-                    MessageBox.Show("Pedido excluído com sucesso!");
+                    MessageBox.Show("Pedido excluído");
                     CarregarPedidos();
                 }
             }
             else
             {
-                MessageBox.Show("Por favor, selecione uma linha completa na tabela para realizar a exclusão.");
+                MessageBox.Show("Para excluir selecione um pedido na tabela.");
             }
         }
 
@@ -418,7 +415,7 @@ namespace LogiN
             }
             else
             {
-                MessageBox.Show("Selecione um pedido válido na tabela abaixo antes de clicar em editar.");
+                MessageBox.Show("Para editar selecione um pedido na tabela");
             }
         }
 
@@ -442,7 +439,6 @@ namespace LogiN
             dgvPedidos.Visible = false;
         }
 
-        // Sistema de troca de rotas de telas
         private void btnClientesP_Click(object sender, EventArgs e) { new TelaClientes().Show(); this.Hide(); }
         private void btnEstoqueP_Click(object sender, EventArgs e) { new TelaEstoque().Show(); this.Hide(); }
         private void btnServicosP_Click(object sender, EventArgs e) { new TelaServicos().Show(); this.Hide(); }
