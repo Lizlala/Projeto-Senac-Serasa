@@ -70,7 +70,7 @@ namespace LogiN
 
             lblFinalizados.Location = new Point(138, 23);
             lblAndamento.Location = new Point(469, 23);
-            lblPendentes.Location = new Point(800, 23);
+            lblPendentes.Location = new Point(770, 23);
 
             lblTotalGeral.Location = new Point(700, 85);
 
