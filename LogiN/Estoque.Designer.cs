@@ -40,6 +40,7 @@
             label3 = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            label14 = new Label();
             btnServicosE = new Button();
             label1 = new Label();
             pictureBox1 = new PictureBox();
@@ -60,7 +61,6 @@
             txtNomeItemE = new TextBox();
             label7 = new Label();
             QuantidadeE = new NumericUpDown();
-            label14 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvEstoque).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -195,6 +195,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(336, 827);
             panel1.TabIndex = 21;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Century Gothic", 8F);
+            label14.Location = new Point(98, 799);
+            label14.Name = "label14";
+            label14.Size = new Size(111, 19);
+            label14.TabIndex = 12;
+            label14.Text = "by  ASTER TECH";
             // 
             // btnServicosE
             // 
@@ -332,7 +342,7 @@
             // panelCadastroE
             // 
             panelCadastroE.Controls.Add(groupBox1);
-            panelCadastroE.Location = new Point(343, 0);
+            panelCadastroE.Location = new Point(342, 0);
             panelCadastroE.Name = "panelCadastroE";
             panelCadastroE.Size = new Size(1136, 821);
             panelCadastroE.TabIndex = 33;
@@ -447,16 +457,6 @@
             QuantidadeE.Name = "QuantidadeE";
             QuantidadeE.Size = new Size(235, 27);
             QuantidadeE.TabIndex = 1;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Century Gothic", 8F);
-            label14.Location = new Point(98, 799);
-            label14.Name = "label14";
-            label14.Size = new Size(111, 19);
-            label14.TabIndex = 12;
-            label14.Text = "by  ASTER TECH";
             // 
             // TelaEstoque
             // 
